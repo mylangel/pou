@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block titulo %}Mi Marketplace{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f6f8;
+      margin: 0;
+      color: #333;
+    }
+
+    header {
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #1877f2;
+      text-decoration: none;
+    }
+
+    nav a {
+      margin-left: 1rem;
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .btn {
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .btn-login {
+      background-color: #1877f2;
+      color: white;
+    }
+
+    .btn-signup {
+      background-color: #42b72a;
+      color: white;
+    }
+
+    .btn-logout {
+      background-color: #f02849;
+      color: white;
+    }
+
+    main {
+      padding: 2rem;
+    }
+
+    footer {
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="{% url 'marketplace:lista_productos' %}" class="logo">🛒 Mi Marketplace</a>
+    <nav>
+      <a href="{% url 'marketplace:nuevo_producto' %}">+ Publicar</a>
+      {% if user.is_authenticated %}
+        <span>👤 {{ user.username }}</span>
+
+        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-logout">Cerrar sesión</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}" class="btn btn-login">Iniciar sesión</a>
+        <a href="{% url 'signup' %}" class="btn btn-signup">Registrarse</a>
+      {% endif %}
+
+    </nav>
+  </header>
+
+  <main>
+    {% block contenido %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>&copy; {{ now|date:"Y" }} Mi Marketplace. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
+
+<style>
+  body {
+    background-color: #fbeec1;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #5c3d2e;
+  }
+
+  .formulario-pou {
+    background-color: #fff8e7;
+    border: 2px solid #ffcc70;
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 400px;
+    margin: 2rem auto;
+    box-shadow: 0 0 10px rgba(166, 124, 82, 0.2);
+  }
+
+  .formulario-pou h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #a67c52;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ffcc70;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+
+  .btn-pou {
+    background-color: #a67c52;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-pou:hover {
+    background-color: #8b5e3c;
+  }
+
+  .link-pou {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    color: #a67c52;
+    text-decoration: none;
+  }
+
+  .error {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+
+  @keyframes fadeInPou {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  .bienvenida-pou {
+    animation: fadeInPou 1s ease-out;
+  }
+  
+</style>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Marketplace</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      background-color: #fbeec1;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      color: #5c3d2e;
+      margin: 0;
+    }
+
+    header {
+      background-color: #ffcc70;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #a67c52;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #5c3d2e;
+      text-decoration: none;
+    }
+
+    nav a, nav form button {
+      margin-left: 1rem;
+      background-color: #a67c52;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover, nav form button:hover {
+      background-color: #8b5e3c;
+    }
+
+    nav span {
+      margin-left: 1rem;
+      font-weight: bold;
+    }
+
+    main {
+      padding: 2rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #ffcc70;
+      border-top: 2px solid #a67c52;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="{% url 'marketplace:lista_productos' %}" class="logo">🟤 Mi Marketplace</a>
+    <nav>
+      <a href="{% url 'marketplace:nuevo_producto' %}"><i class="fas fa-plus-circle"></i> Publicar</a>
+      {% if user.is_authenticated %}
+        <span><i class="fas fa-user"></i> {{ user.username }}</span>
+        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a>
+        <a href="{% url 'signup' %}"><i class="fas fa-user-plus"></i> Registrarse</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main>
+
+  </main>
+
+  <footer>
+    <p>&copy; {{ now|date:"Y" }} Mi Marketplace. Todos los derechos

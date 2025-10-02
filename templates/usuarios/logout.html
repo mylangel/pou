@@ -1,0 +1,81 @@
+<div class="formulario-pou">
+  <h2>¿Cerrar sesión?</h2>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn-pou">Sí, cerrar sesión</button>
+  </form>
+  <a href="{% url 'marketplace:lista_productos' %}" class="link-pou">Volver al inicio</a>
+</div>
+
+<style>
+  body {
+    background-color: #fbeec1;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #5c3d2e;
+  }
+
+  .formulario-pou {
+    background-color: #fff8e7;
+    border: 2px solid #ffcc70;
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 400px;
+    margin: 2rem auto;
+    box-shadow: 0 0 10px rgba(166, 124, 82, 0.2);
+  }
+
+  .formulario-pou h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #a67c52;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ffcc70;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+
+  .btn-pou {
+    background-color: #a67c52;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-pou:hover {
+    background-color: #8b5e3c;
+  }
+
+  .link-pou {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    color: #a67c52;
+    text-decoration: none;
+  }
+
+  .error {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+</style>
